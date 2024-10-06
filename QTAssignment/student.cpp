@@ -4,7 +4,7 @@ Student::Student(QString firstName,
                  QString lastName,
                  QString email,
                  Gender gender,
-                 int age) : m_firstName(firstName), m_lastName(lastName), m_email(email), m_age(age), m_gender(gender)
+                 int age) : m_firstName(firstName), m_lastName(lastName), m_email(email), m_gender(gender), m_age(age)
 {
     this->m_studentID = g_studentID++;
 }
