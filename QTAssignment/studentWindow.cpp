@@ -3,21 +3,34 @@
 #include "admin.h"
 #include <QLabel>
 #include <QMessageBox>
+#include "loginWindow.h"
 
 StudentWindow::StudentWindow(std::shared_ptr<Student> student, QWidget *parent) : QWidget(parent), m_student(student) {
     viewProfileButton = new QPushButton("View Profile", this);
     addCourseButton = new QPushButton("Add Course", this);
+    returnToLoginButton = new QPushButton("Return ", this);
+
 
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->addWidget(viewProfileButton);
     layout->addWidget(addCourseButton);
+    layout->addWidget(returnToLoginButton);
+
 
     setLayout(layout);
 
     // Connect buttons to slots
     connect(viewProfileButton, &QPushButton::clicked, this, [=]() {viewProfile();});
     connect(addCourseButton, &QPushButton::clicked, this, &StudentWindow::registerCourse);
+    connect(returnToLoginButton, &QPushButton::clicked, this, &StudentWindow::returnToLogin);
 
+}
+
+
+void StudentWindow::returnToLogin() {
+    this->close();
+    LoginWindow *loginWindow = new LoginWindow();
+    loginWindow->show();
 }
 
 void StudentWindow::viewProfile() {

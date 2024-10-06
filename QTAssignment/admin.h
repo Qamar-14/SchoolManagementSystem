@@ -20,6 +20,9 @@ public:
     bool courseExists(const QString &courseName) const;
     QVector<shared_ptr<Student>> getStudentList();
     QVector<shared_ptr<Teacher>> getTeacherList();
+    shared_ptr<Student> findStudent(const QString& username);
+    shared_ptr<Teacher> findTeacher(const QString& username);
+
 
 signals:
     void studentAdded(const QString &studentName);
@@ -30,6 +33,7 @@ public slots:
     void openAddStudentDialog();
     void openAddTeacherDialog();
     void addSubject();
+    void returnToLogin();
 
 private:
     static Admin* admanInstance; // Static instance of Admin
@@ -43,7 +47,7 @@ private:
     QPushButton *AddSubject;
     QPushButton *ModifyStudent;
     QPushButton *ModifyTeacher;
-
+    QPushButton *returnToLoginButton;
 
 };
 

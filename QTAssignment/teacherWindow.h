@@ -17,13 +17,14 @@ public:
 public slots:
     void viewProfile();
     void viewStudents();
-
+    void returnToLogin();
 
 private:
     shared_ptr<Teacher> m_teacher;
 
     QPushButton *viewProfileButton;
     QPushButton *viewStudentsButton;
+    QPushButton *returnToLoginButton;
 };
 
 

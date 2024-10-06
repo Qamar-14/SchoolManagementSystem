@@ -2,6 +2,7 @@
 #include "studentDialog.h"
 #include "teacherDialog.h"
 #include "subject.h"
+#include "loginWindow.h"
 
 Admin* Admin::admanInstance = nullptr;
 
@@ -18,6 +19,8 @@ Admin::Admin(QWidget *parent) : QWidget(parent) {
     AddSubject = new QPushButton("Add Subject", this);
     ModifyStudent = new QPushButton("Modify Students", this);
     ModifyTeacher= new QPushButton("Modify Teachers", this);
+    returnToLoginButton = new QPushButton("Return to Login", this);
+
 
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->addWidget(AddStudent);
@@ -25,6 +28,7 @@ Admin::Admin(QWidget *parent) : QWidget(parent) {
     layout->addWidget(AddSubject);
     layout->addWidget(ModifyStudent);
     layout->addWidget(ModifyTeacher);
+    layout->addWidget(returnToLoginButton); // Add the return button to the layout
 
     setLayout(layout);
 
@@ -32,7 +36,15 @@ Admin::Admin(QWidget *parent) : QWidget(parent) {
     connect(AddStudent, &QPushButton::clicked, this, &Admin::openAddStudentDialog);
     connect(AddTeacher, &QPushButton::clicked, this, &Admin::openAddTeacherDialog);
     connect(AddSubject, &QPushButton::clicked, this, &Admin::addSubject);
+    connect(returnToLoginButton, &QPushButton::clicked, this, &Admin::returnToLogin);
 
+}
+
+
+void Admin::returnToLogin() {
+    this->close();
+    LoginWindow *loginWindow = new LoginWindow();
+    loginWindow->show();
 }
 
 void Admin::openAddStudentDialog() {
@@ -53,6 +65,24 @@ void Admin::openAddStudentDialog() {
 
 
     }
+}
+
+std::shared_ptr<Student> Admin::findStudent(const QString& username) {
+    for (const auto& student : m_studentList) {
+        if (student->getEmail() == username) {
+            return student;
+        }
+    }
+    return nullptr; // Return nullptr if no match found
+}
+
+std::shared_ptr<Teacher> Admin::findTeacher(const QString& username) {
+    for (const auto& teacher : m_teacherList) {
+        if (teacher->getEmail() == username) {
+            return teacher;
+        }
+    }
+    return nullptr; // Return nullptr if no match found
 }
 
 

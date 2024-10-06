@@ -1,6 +1,6 @@
 #include "teacherWindow.h"
 #include "admin.h"
-
+#include "loginWindow.h"
 #include <QLabel>
 #include <QMessageBox>
 
@@ -8,17 +8,27 @@ TeacherWindow::TeacherWindow(shared_ptr<Teacher> teacher, QWidget *parent) : QWi
 
     viewProfileButton = new QPushButton("View Profile", this);
     viewStudentsButton = new QPushButton("View Students", this);
+    returnToLoginButton = new QPushButton("Return ", this);
 
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->addWidget(viewProfileButton);
     layout->addWidget(viewStudentsButton);
+    layout->addWidget(returnToLoginButton);
 
     setLayout(layout);
 
     // Connect buttons to slots
     connect(viewProfileButton, &QPushButton::clicked, this, [=](){viewProfile();});
     connect(viewStudentsButton, &QPushButton::clicked, this,  [=](){viewStudents();});
+    connect(returnToLoginButton, &QPushButton::clicked, this, &TeacherWindow::returnToLogin);
 
+}
+
+
+void TeacherWindow::returnToLogin() {
+    this->close();
+    LoginWindow *loginWindow = new LoginWindow();
+    loginWindow->show();
 }
 
 void TeacherWindow::viewProfile() {
